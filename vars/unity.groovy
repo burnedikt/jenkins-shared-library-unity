@@ -1,6 +1,12 @@
 #!/usr/bin/env groovy
 
-def call(String unityVersion, String projectPath, String unityEmail, String unityPassword, String unitySerial) {
+def install(unityVersion) {
+  echo "Trying to install Unity Version ${unityVersion}."
+  powershell "gem install u3d"
+  powershell "u3d install ${unityVersion}"
+}
+
+def createProject(unityVersion, projectPath, unityEmail, unityPassword, unitySerial) {
   echo "Activating Unity License for ${email}"
   // Unity is stupid so we need to open it once without batchmode before actually trying to start the license activation process
   // this might be fixed in a newer version, but for now we're stuck. see http://answers.unity.com/answers/1171215/view.html
@@ -21,4 +27,9 @@ def call(String unityVersion, String projectPath, String unityEmail, String unit
   """
   echo "Activating Unity license & Creating new Unity Project"
   powershell "u3d run -u ${unityVersion} -- -nographics -quit -batchmode -logFile editor.log -createProject ${projectPath} -serial \"${unitySerial}\" -username \"${unityEmail}\" -password \"${unityPassword}\""
+}
+
+def returnSerial(unityVersion) {
+  echo "Returning Unity Serial"
+  powershell "u3d run -u ${unityVersion} -- -nographics -quit -batchmode -logFile editor.log -returnlicense"
 }

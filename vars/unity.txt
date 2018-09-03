@@ -1,0 +1,20 @@
+# unity.install(unityVersion)
+
+Tries to install the given Unity version (e.g. '2017.2.0f3').
+
+Requires `u3d` to be installed to run the Unity commands.
+
+# unity.createProject(unityVersion, projectPath, unityEmail, unityPassword, unitySerial)
+
+Tries to create a new project using the given Unity version (e.g. '2017.2.0f3')
+and will activate the Unity instance using the given email address, password and
+suitable Unity serial key.
+
+Requires `u3d` to be installed to run the Unity commands.
+
+# unity.returnSerial(unityVersion)
+
+Deactivates the currently activated Unity license / serial using the given Unity
+version (e.g. '2017.2.0f3').
+
+Requires `u3d` to be installed to run the Unity commands.

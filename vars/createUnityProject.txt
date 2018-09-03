@@ -1,7 +1,0 @@
-# createUnityProject(unityVersion, projectPath, unityEmail, unityPassword, unitySerial)
-
-Tries to create a new project using the given Unity version (e.g. '2017.2.0f3')
-and will activate the Unity instance using the given email address, password and
-suitable Unity serial key.
-
-Requires `u3d` to be installed to run the Unity commands.

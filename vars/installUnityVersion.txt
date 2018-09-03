@@ -1,5 +1,0 @@
-# installUnityVersion(unityVersion)
-
-Tries to install the given Unity version (e.g. '2017.2.0f3').
-
-Requires `u3d` to be installed to run the Unity commands.
