@@ -2,9 +2,8 @@
 
 Provides several helper steps when dealing with Unity3D in a Jenkins pipeline.
 
-- `installUnityVersion`: Installs the specified Unity Version on the system
-- `returnUnityLicense`: Deactivates the existing Unity installation
+- `unity.install`: Installs the specified Unity Version on the system.
+- `unity.createProject`: Creates a new Unity Project at the given location and takes
+  care of activating a Unity serial at the same time.
+- `unity.returnSerial`: Deactivates the existing Unity installation.
 
-Further Helpers:
-
-- `detectVersionFromGitTag`: Finds out the semantic version from existing git tags.
