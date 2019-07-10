@@ -1,9 +1,23 @@
 #!/usr/bin/env groovy
 
 def install(unityVersion) {
-  echo "Trying to install Unity Version ${unityVersion}."
-  powershell "gem install u3d"
-  powershell "u3d install ${unityVersion}"
+  powershell """
+  Write-Output 'Making sure u3d is installed.'
+  gem install u3d
+  Write-Output 'Trying to install Unity Version ${unityVersion}.'
+  \$maximumRuntimeSeconds = 300
+  \$process = Start-Process -FilePath u3d -ArgumentList 'install ${unityVersion}' -PassThru
+  try
+  {
+      \$process | Wait-Process -Timeout \$maximumRuntimeSeconds -ErrorAction Stop
+      Write-Warning -Message 'Unity installation successfully finished within timeout.'
+  }
+  catch
+  {
+      Write-Warning -Message 'Unity installation exceeded timeout, will be killed now.'
+      Taskkill /IM ruby.exe /F
+  }
+  """
 }
 
 def createProject(unityVersion, projectPath, unityEmail, unityPassword, unitySerial) {
