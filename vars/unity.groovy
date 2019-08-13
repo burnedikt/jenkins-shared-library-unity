@@ -3,10 +3,17 @@
 def install(unityVersion) {
   powershell """
   Write-Output 'Making sure u3d is installed.'
-  gem install u3d
+  if (Get-Command "u3d.exe" -ErrorAction SilentlyContinue)
+  {
+    gem update u3d
+  }
+  else
+  {
+    gem install u3d
+  }
   Write-Output 'Trying to install Unity Version ${unityVersion}.'
   \$maximumRuntimeSeconds = 300
-  \$process = Start-Process -FilePath u3d -ArgumentList 'install ${unityVersion}' -PassThru
+  \$process = Start-Process -FilePath u3d -ArgumentList 'install --trace --verbose ${unityVersion}' -PassThru
   try
   {
       \$process | Wait-Process -Timeout \$maximumRuntimeSeconds -ErrorAction Stop
@@ -16,6 +23,7 @@ def install(unityVersion) {
   {
       Write-Warning -Message 'Unity installation exceeded timeout, will be killed now.'
       Taskkill /IM ruby.exe /F
+      exit 1
   }
   """
 }
