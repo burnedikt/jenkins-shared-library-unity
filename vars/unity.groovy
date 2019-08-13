@@ -13,9 +13,7 @@ def install(unityVersion) {
   }
   Write-Output 'Trying to install Unity Version ${unityVersion}.'
   \$maximumRuntimeSeconds = 900
-  \$process = Start-Process -FilePath u3d -ArgumentList 'install --trace --verbose ${unityVersion}' -PassThru -RedirectStandardError \$true  -RedirectStandardOutput \$true
-  \$stdout = \$process.StandardOutput.ReadToEnd()
-  \$stderr = \$process.StandardError.ReadToEnd()
+  \$process = Start-Process -FilePath u3d -ArgumentList 'install --trace --verbose ${unityVersion}' -PassThru
   try
   {
       \$process | Wait-Process -Timeout \$maximumRuntimeSeconds -ErrorAction Stop
@@ -25,8 +23,6 @@ def install(unityVersion) {
   {
       Write-Warning -Message 'Unity installation exceeded timeout, will be killed now.'
       Taskkill /IM ruby.exe /F
-      Write-Output "Output was: \$stdout"
-      Write-Output "Error Output was: \$stdout"
       exit \$process.ExitCode
   }
   """
