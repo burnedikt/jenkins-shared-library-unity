@@ -12,8 +12,8 @@ def install(unityVersion) {
     gem install u3d
   }
   Write-Output 'Trying to install Unity Version ${unityVersion}.'
-  \$maximumRuntimeSeconds = 300
-  \$process = Start-Process -FilePath u3d -ArgumentList 'install --trace --verbose ${unityVersion}' -PassThru
+  \$maximumRuntimeSeconds = 900
+  \$process = Start-Process -FilePath u3d -ArgumentList 'install --trace --verbose ${unityVersion}' -PassThru -NoNewWindow
   try
   {
       \$process | Wait-Process -Timeout \$maximumRuntimeSeconds -ErrorAction Stop
@@ -34,7 +34,7 @@ def createProject(unityVersion, projectPath, unityEmail, unityPassword, unitySer
   echo "Starting Unity once (non-headless) for license activation"
   powershell """
   \$maximumRuntimeSeconds = 30
-  \$process = Start-Process -FilePath u3d -ArgumentList 'run -u ${unityVersion}' -PassThru
+  \$process = Start-Process -FilePath u3d -ArgumentList 'run -u ${unityVersion}' -PassThru -NoNewWindow
   try
   {
       \$process | Wait-Process -Timeout \$maximumRuntimeSeconds -ErrorAction Stop
